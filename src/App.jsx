@@ -9,7 +9,7 @@ function App() {
   const [cart, setCart] = useAtom(cartAtom);
 
   return (
-    <div className='bg-gray-500 h-screen'>
+    <div className=''>
 <Header/>
 <Modal cartItem={cart}/>
 <MealList/>

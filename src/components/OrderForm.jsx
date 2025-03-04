@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { createOrder } from "../api/orders";
 
 const OrderForm = ({ cart }) => {
@@ -29,7 +29,7 @@ const OrderForm = ({ cart }) => {
         };
 
         try {
-          const response = await createOrder(orderData); // Use createOrder
+          const response = await createOrder(orderData);
           console.log("Order Response:", response);
           resetForm();
         } catch (error) {
@@ -38,28 +38,64 @@ const OrderForm = ({ cart }) => {
       }}
     >
       {({ isSubmitting }) => (
-        <Form className="bg-white p-6 rounded shadow-lg w-1/3">
-          <h2 className="text-xl font-bold mb-4">Order Details</h2>
+        <Form className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto mt-4">
+          <h2 className="text-xl font-semibold mb-4 text-center">Order Details</h2>
 
-          <label className="block">Email</label>
-          <Field name="email" type="email" className="border p-2 w-full" />
+          {/* Email */}
+          <div className="mb-3">
+            <label className="block font-medium mb-1">Email</label>
+            <Field
+              name="email"
+              type="email"
+              className="border rounded-md p-2 w-full focus:ring focus:ring-blue-300"
+            />
+          </div>
 
-          <label className="block mt-2">Name</label>
-          <Field name="name" className="border p-2 w-full" />
+          {/* Name */}
+          <div className="mb-3">
+            <label className="block font-medium mb-1">Name</label>
+            <Field
+              name="name"
+              className="border rounded-md p-2 w-full focus:ring focus:ring-blue-300"
+            />
+          </div>
 
-          <label className="block mt-2">Street</label>
-          <Field name="street" className="border p-2 w-full" />
+          {/* Street */}
+          <div className="mb-3">
+            <label className="block font-medium mb-1">Street</label>
+            <Field
+              name="street"
+              className="border rounded-md p-2 w-full focus:ring focus:ring-blue-300"
+            />
+          </div>
 
-          <label className="block mt-2">Postal Code</label>
-          <Field name="postalCode" className="border p-2 w-full" />
+          {/* Postal Code */}
+          <div className="mb-3">
+            <label className="block font-medium mb-1">Postal Code</label>
+            <Field
+              name="postalCode"
+              className="border rounded-md p-2 w-full focus:ring focus:ring-blue-300"
+            />
+          </div>
 
-          <label className="block mt-2">City</label>
-          <Field name="city" className="border p-2 w-full" />
+          {/* City */}
+          <div className="mb-4">
+            <label className="block font-medium mb-1">City</label>
+            <Field
+              name="city"
+              className="border rounded-md p-2 w-full focus:ring focus:ring-blue-300"
+            />
+          </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-blue-500 text-white p-2 rounded mt-4 w-full"
+            className={`w-full py-2 text-white rounded-md transition-all ${
+              isSubmitting
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
+            }`}
           >
             {isSubmitting ? "Submitting..." : "Submit Order"}
           </button>

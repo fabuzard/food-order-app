@@ -1,22 +1,38 @@
-import { useAtom } from 'jotai';
-import { cartAtom } from '../store/atoms';
-import { useCartActions } from '../store/useCartActions';
+import { useCartActions } from "../store/useCartActions";
 
-const MealItem = ({ meal ,image}) => {
-  const {addToCart,removeFromCart} =useCartActions();
-
-
-
+const MealItem = ({ meal, image }) => {
+  const { addToCart, removeFromCart } = useCartActions();
 
   return (
-    <div>
-    <img src={`http://localhost:3000/${image}`} alt="" />
-      <h3>{meal.name}</h3>
-      <p>${meal.price}</p>
-      <div className='flex flex-col'>
+    <div className="bg-slate-800  text-white rounded-xl shadow-lg flex flex-col h-full overflow-hidden transition-transform duration-300 hover:scale-105">
+      {/* Image Section */}
+      <img
+        src={`http://localhost:3000/${image}`}
+        alt={meal.name}
+        className="w-full h-[200px] object-cover"
+      />
 
-      <button onClick={()=>addToCart(meal)} className='cursor-pointer'>Add to Cart</button>
-      <button onClick={()=>removeFromCart(meal)} className='cursor-pointer'>remove</button>
+      {/* Content Section */}
+      <div className="flex flex-col flex-grow justify-between p-5 text-center space-y-4">
+        <h3 className="text-2xl font-semibold">{meal.name}</h3>
+
+        {/* Price Badge */}
+        <p className="text-lg font-bold bg-amber-500 w-24 h-10 rounded-lg mx-auto flex justify-center items-center shadow-md">
+          ${meal.price}
+        </p>
+
+        {/* Description */}
+        <p className="text-neutral-400 text-sm leading-relaxed">
+          {meal.description}
+        </p>
+
+        {/* Add to Cart Button */}
+        <button
+          onClick={() => addToCart(meal)}
+          className="bg-amber-500 text-slate-900 font-medium py-2 px-4 rounded-lg mt-3 transition-all hover:bg-amber-400 active:scale-95"
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );

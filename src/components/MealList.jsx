@@ -1,28 +1,35 @@
-import { useMeals } from '../hooks/useMeals';
-import MealItem from './MealItem';
-import { useMemo ,useEffect} from 'react';
-import { useAtom } from 'jotai';
-import { cartAtom } from '../store/atoms';
+import { useMeals } from "../hooks/useMeals";
+import MealItem from "./MealItem";
+import { useMemo, useEffect } from "react";
+import { useAtom } from "jotai";
+import { cartAtom } from "../store/atoms";
+
 const MealList = () => {
   const meals = useMeals();
-   const [cart, setCart] = useAtom(cartAtom);
+  const [cart] = useAtom(cartAtom);
 
-  const mealItems = useMemo(() => 
-    meals.map((meal) => <MealItem key={meal.id} meal={meal} image={meal.image} />), 
+  const mealItems = useMemo(
+    () =>
+      meals.map((meal) => (
+        <MealItem key={meal.id} meal={meal} image={meal.image} />
+      )),
     [meals]
   );
 
-  
   useEffect(() => {
-    console.log(cart);
-  }, [cart]); // Empty dependency array ensures it runs only once
-  
-  return (
-    <div className=''>
-      <h2>Meals</h2>
-      <div className='grid grid-cols-3 gap-4'>
+    console.log(meals);
+  }, [cart]); // Logs cart updates
 
-      {meals.length === 0 ? <p>Loading meals...</p> : mealItems}
+  return (
+    <div className="bg-slate-900 py-6">
+      <div className="max-w-screen-xl mx-auto px-4">
+        {meals.length === 0 ? (
+          <p className="text-white text-center">Loading meals...</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {mealItems}
+          </div>
+        )}
       </div>
     </div>
   );
